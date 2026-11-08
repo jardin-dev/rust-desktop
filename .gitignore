@@ -1,0 +1,8 @@
+# Sortie de compilation
+/app/target/
+/app/build.log
+
+# Divers Windows
+Thumbs.db
+desktop.ini
+*.pdb
