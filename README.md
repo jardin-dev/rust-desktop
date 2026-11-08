@@ -2,7 +2,8 @@
 
 Widget de bureau natif écrit en Rust avec [egui/eframe](https://github.com/emilk/egui),
 recréant le skin Rainmeter **Miklfe** sous Windows : horloge analogique, visualiseur
-audio et bandes d'ombre latérales, sans Rainmeter.
+audio et bandes d'ombre latérales, sans Rainmeter. Il est dérivé du skin
+**Cantarell** d'[ApexXx-SenSei](https://www.deviantart.com/apexxx-sensei/art/Cantarell-770482237).
 
 Le projet est composé de trois fenêtres sans bordure, transparentes et ancrées au
 bas de la pile des fenêtres :
@@ -114,8 +115,15 @@ tampons de sommets/indices à chaque image (`glBufferData`) et fuyait de la mém
 avec certains pilotes NVIDIA. La copie alloue une fois puis utilise
 `glBufferSubData` (voir `vendor/egui_glow/src/painter.rs`).
 
+## Crédits et source
+
+Ce projet réécrit en Rust le skin Rainmeter **Miklfe**, dérivé du skin **Cantarell**
+créé par [ApexXx-SenSei](https://www.deviantart.com/apexxx-sensei/art/Cantarell-770482237)
+et publié le 30 octobre 2018 sur DeviantArt.
+
+Les textures (`Background.png`, `Glass.png`), la police Arca Majora 2 Heavy et les
+proportions du skin proviennent de ces skins.
+
 ## Notes
 
-- Les textures (`Background.png`, `Glass.png`) et la police proviennent du skin
-  Rainmeter Miklfe d'origine.
 - `app/target/` et `app/build.log` ne sont pas versionnés.
