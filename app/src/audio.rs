@@ -36,12 +36,12 @@ impl AudioEngine {
         let thread_bands = Arc::clone(&bands);
         let thread_stop = Arc::clone(&stop);
         let spawned = thread::Builder::new()
-            .name("miklfe-audio".into())
+            .name("rustdesktop-audio".into())
             .spawn(move || {
                 let _ = initialize_mta();
                 while !thread_stop.load(Ordering::Relaxed) {
                     if let Err(error) = capture_loop(&thread_bands, &thread_stop) {
-                        eprintln!("miklfe: capture audio indisponible: {error}");
+                        eprintln!("rustdesktop: capture audio indisponible: {error}");
                         if let Ok(mut bands) = thread_bands.lock() {
                             bands.fill(0.0);
                         }
@@ -51,7 +51,7 @@ impl AudioEngine {
             });
 
         if let Err(error) = spawned {
-            eprintln!("miklfe: impossible de démarrer le thread audio: {error}");
+            eprintln!("rustdesktop: impossible de démarrer le thread audio: {error}");
         }
 
         Self { bands, stop }

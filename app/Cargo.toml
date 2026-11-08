@@ -1,8 +1,8 @@
 [package]
-name = "miklfe"
+name = "rustdesktop"
 version = "0.1.0"
 edition = "2024"
-description = "Widget de bureau natif reproduisant le skin Rainmeter Miklfe"
+description = "Widget de bureau natif inspiré du skin Rainmeter Cantarell"
 
 [dependencies]
 eframe = { version = "0.37", features = ["glow"] }

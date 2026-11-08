@@ -12,10 +12,10 @@ pub struct Textures {
 impl Textures {
     pub fn load(ctx: &egui::Context) -> Self {
         Self {
-            glass: load_texture(ctx, "miklfe-glass", include_bytes!("../assets/Glass.png")),
+            glass: load_texture(ctx, "rustdesktop-glass", include_bytes!("../assets/Glass.png")),
             swoosh: load_texture(
                 ctx,
-                "miklfe-swoosh",
+                "rustdesktop-swoosh",
                 include_bytes!("../assets/Background.png"),
             ),
         }
@@ -24,7 +24,7 @@ impl Textures {
 
 fn load_texture(ctx: &egui::Context, name: &str, bytes: &[u8]) -> egui::TextureHandle {
     let image = image::load_from_memory(bytes)
-        .expect("ressource PNG du skin Miklfe illisible")
+        .expect("ressource PNG du skin Cantarell illisible")
         .to_rgba8();
     let size = [image.width() as usize, image.height() as usize];
     let pixels = egui::ColorImage::from_rgba_unmultiplied(size, image.as_raw());
@@ -37,14 +37,14 @@ pub fn install_fonts(ctx: &egui::Context) {
 
     // Arca Majora 2 Heavy, fournie avec le skin pour le bloc de date.
     fonts.font_data.insert(
-        "miklfe-date".to_owned(),
+        "rustdesktop-date".to_owned(),
         Arc::new(egui::FontData::from_static(include_bytes!(
             "../assets/Arca Majora 2 Heavy.ttf"
         ))),
     );
     fonts.families.insert(
-        egui::FontFamily::Name("miklfe-date".into()),
-        vec!["miklfe-date".to_owned(), "Ubuntu-Light".to_owned()],
+        egui::FontFamily::Name("rustdesktop-date".into()),
+        vec!["rustdesktop-date".to_owned(), "Ubuntu-Light".to_owned()],
     );
 
     // Segoe UI Light / Candara Light : la signature du cadran.
@@ -63,15 +63,15 @@ pub fn install_fonts(ctx: &egui::Context) {
 
     let brand_family = if let Some(bytes) = brand {
         fonts.font_data.insert(
-            "miklfe-brand".to_owned(),
+            "rustdesktop-brand".to_owned(),
             Arc::new(egui::FontData::from_owned(bytes)),
         );
-        vec!["miklfe-brand".to_owned(), "Ubuntu-Light".to_owned()]
+        vec!["rustdesktop-brand".to_owned(), "Ubuntu-Light".to_owned()]
     } else {
         vec!["Ubuntu-Light".to_owned()]
     };
     fonts.families.insert(
-        egui::FontFamily::Name("miklfe-brand".into()),
+        egui::FontFamily::Name("rustdesktop-brand".into()),
         brand_family,
     );
 

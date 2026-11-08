@@ -48,5 +48,5 @@ fn state_path() -> PathBuf {
     let base = std::env::var_os("APPDATA")
         .map(PathBuf::from)
         .unwrap_or_else(std::env::temp_dir);
-    base.join("Miklfe").join("window.json")
+    base.join("rustdesktop").join("window.json")
 }

@@ -1,4 +1,4 @@
-//! Rendu de l'horloge Miklfe : cadran, aiguilles, bloc de date et verre.
+//! Rendu de l'horloge : cadran, aiguilles, bloc de date et verre.
 
 use std::f32::consts::{FRAC_PI_2, TAU};
 

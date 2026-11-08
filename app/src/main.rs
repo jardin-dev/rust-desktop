@@ -1,4 +1,4 @@
-//! Miklfe — widget de bureau natif inspiré du skin Rainmeter du même nom.
+//! rustdesktop — widget de bureau natif inspiré du skin Rainmeter Cantarell.
 //!
 //! L'horloge, le visualiseur audio et les bandes d'ombre sont trois fenêtres
 //! sans bordure et transparentes. La fenêtre racine n'est qu'un hôte invisible
@@ -6,7 +6,7 @@
 //! transparence avec le backend OpenGL.
 //!
 //! Aucun réglage : les positions sont mémorisées automatiquement dans
-//! `%APPDATA%\Miklfe\window.json`.
+//! `%APPDATA%\rustdesktop\window.json`.
 
 #![windows_subsystem = "windows"]
 mod assets;
@@ -51,7 +51,7 @@ fn main() -> eframe::Result {
     {
         use windows_sys::Win32::Foundation::ERROR_ALREADY_EXISTS;
         use windows_sys::Win32::System::Threading::CreateMutexW;
-        let name: Vec<u16> = "MiklfeWidgetSingleInstanceMutex\0"
+        let name: Vec<u16> = "rustdesktopWidgetSingleInstanceMutex\0"
             .encode_utf16()
             .collect();
         unsafe {
@@ -68,7 +68,7 @@ fn main() -> eframe::Result {
     // Hôte minuscule et hors écran : il ne sert qu'à faire tourner la boucle
     // d'événements et à posséder les trois viewports visibles.
     let viewport = ViewportBuilder::default()
-        .with_title("Miklfe host")
+        .with_title("rustdesktop host")
         .with_inner_size([1.0, 1.0])
         .with_position([-200.0, -200.0])
         .with_decorations(false)
@@ -87,22 +87,22 @@ fn main() -> eframe::Result {
     };
 
     eframe::run_native(
-        "Miklfe",
+        "rustdesktop",
         options,
         Box::new(move |cc| Ok(Box::new(App::new(cc, saved, demo)))),
     )
 }
 
 fn clock_id() -> egui::ViewportId {
-    egui::ViewportId::from_hash_of("miklfe-clock")
+    egui::ViewportId::from_hash_of("rustdesktop-clock")
 }
 
 fn visualizer_id() -> egui::ViewportId {
-    egui::ViewportId::from_hash_of("miklfe-visualizer")
+    egui::ViewportId::from_hash_of("rustdesktop-visualizer")
 }
 
 fn bar_id() -> egui::ViewportId {
-    egui::ViewportId::from_hash_of("miklfe-bar")
+    egui::ViewportId::from_hash_of("rustdesktop-bar")
 }
 
 /// État partagé entre l'hôte, l'horloge et le visualiseur.
@@ -176,9 +176,9 @@ impl App {
             win_tuned: false,
             first_frame: true,
             monitor_size: egui::vec2(1536.0, 864.0),
-            no_stack: std::env::var_os("MIKLFE_NO_STACK").is_some(),
-            no_desktop: std::env::var_os("MIKLFE_NO_DESKTOP").is_some(),
-            no_clock_draw: std::env::var_os("MIKLFE_NO_CLOCK_DRAW").is_some(),
+            no_stack: std::env::var_os("RUSTDESKTOP_NO_STACK").is_some(),
+            no_desktop: std::env::var_os("RUSTDESKTOP_NO_DESKTOP").is_some(),
+            no_clock_draw: std::env::var_os("RUSTDESKTOP_NO_CLOCK_DRAW").is_some(),
         }
     }
 
@@ -229,7 +229,7 @@ impl App {
             .unwrap_or(Position { x: 0.0, y: 0.0 });
 
         let builder = ViewportBuilder::default()
-            .with_title("Miklfe")
+            .with_title("rustdesktop")
             .with_inner_size([theme::CLOCK_WIDTH, theme::CLOCK_HEIGHT])
             .with_position([target.x, target.y])
             .with_decorations(false)
@@ -251,7 +251,7 @@ impl App {
 
             let response = ui.interact(
                 ui.max_rect(),
-                ui.scope_id().with("miklfe-clock"),
+                ui.scope_id().with("rustdesktop-clock"),
                 egui::Sense::click_and_drag(),
             );
             if response.drag_started_by(egui::PointerButton::Primary) {
@@ -277,8 +277,8 @@ impl App {
                 }
                 if released {
                     win::set_desktop_z_order(
-                        "Miklfe",
-                        win::is_show_desktop_active("Miklfe host"),
+                        "rustdesktop",
+                        win::is_show_desktop_active("rustdesktop host"),
                     );
                 }
             }
@@ -301,7 +301,7 @@ impl App {
             .unwrap_or(Position { x: 0.0, y: 0.0 });
 
         let builder = ViewportBuilder::default()
-            .with_title("Miklfe visualizer")
+            .with_title("rustdesktop visualizer")
             .with_inner_size([theme::VISUALIZER_WIDTH, theme::VISUALIZER_HEIGHT])
             .with_position([position.x, position.y])
             .with_decorations(false)
@@ -335,7 +335,7 @@ impl App {
 
     fn show_bar(&self, ctx: &egui::Context) {
         let builder = ViewportBuilder::default()
-            .with_title("Miklfe bar")
+            .with_title("rustdesktop bar")
             .with_position([0.0, 0.0])
             .with_inner_size([self.monitor_size.x, self.monitor_size.y])
             .with_decorations(false)
@@ -389,7 +389,7 @@ impl App {
 
 impl eframe::App for App {
     fn clear_color(&self, _visuals: &egui::Visuals) -> [f32; 4] {
-        if std::env::var_os("MIKLFE_RED").is_some() {
+        if std::env::var_os("RUSTDESKTOP_RED").is_some() {
             [0.5, 0.0, 0.0, 0.5]
         } else {
             [0.0, 0.0, 0.0, 0.0]
@@ -415,7 +415,7 @@ impl eframe::App for App {
 
         if resumed {
             // Un seul passage propre et immédiat pour toutes les fenêtres au réveil
-            for title in &["Miklfe", "Miklfe visualizer", "Miklfe bar"] {
+            for title in &["rustdesktop", "rustdesktop visualizer", "rustdesktop bar"] {
                 win::tune(title);
             }
             // On verrouille directement pour empêcher le bloc à 100ms de relancer un tune superflu
@@ -425,23 +425,23 @@ impl eframe::App for App {
         }
 
         self.update_bands();
-        if std::env::var_os("MIKLFE_NO_BAR").is_none() {
+        if std::env::var_os("RUSTDESKTOP_NO_BAR").is_none() {
             self.show_bar(&ctx);
         }
-        if std::env::var_os("MIKLFE_NO_VIZ").is_none() {
+        if std::env::var_os("RUSTDESKTOP_NO_VIZ").is_none() {
             self.show_visualizer(&ctx);
         }
         self.show_clock(&ctx);
         self.persist(Instant::now());
 
         if !self.no_desktop && self.last_desktop_check.elapsed() >= Duration::from_millis(150) {
-            let desktop_shown = win::is_show_desktop_active("Miklfe host");
+            let desktop_shown = win::is_show_desktop_active("rustdesktop host");
             if desktop_shown != self.desktop_shown {
                 self.desktop_shown = desktop_shown;
                 let order: [&str; 3] = if desktop_shown {
-                    ["Miklfe bar", "Miklfe visualizer", "Miklfe"]
+                    ["rustdesktop bar", "rustdesktop visualizer", "rustdesktop"]
                 } else {
-                    ["Miklfe", "Miklfe visualizer", "Miklfe bar"]
+                    ["rustdesktop", "rustdesktop visualizer", "rustdesktop bar"]
                 };
                 for title in order {
                     win::set_desktop_z_order(title, desktop_shown);
@@ -456,7 +456,7 @@ impl eframe::App for App {
 
         if self.last_chrome_check.elapsed() >= CHROME_CHECK_INTERVAL {
             let mut repaired = false;
-            for title in ["Miklfe", "Miklfe visualizer", "Miklfe bar"] {
+            for title in ["rustdesktop", "rustdesktop visualizer", "rustdesktop bar"] {
                 repaired |= win::repair(title);
             }
             if repaired {
@@ -469,7 +469,7 @@ impl eframe::App for App {
         }
 
         if !self.win_tuned && self.last_win_tune.elapsed() >= Duration::from_millis(100) {
-            self.win_tuned = ["Miklfe", "Miklfe visualizer", "Miklfe bar"]
+            self.win_tuned = ["rustdesktop", "rustdesktop visualizer", "rustdesktop bar"]
                 .iter()
                 .all(|title| win::tune(title));
             self.last_win_tune = Instant::now();

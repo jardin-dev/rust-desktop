@@ -1,4 +1,4 @@
-//! Constantes visuelles reprises du skin `Miklfe`.
+//! Constantes visuelles reprises du skin `Cantarell`.
 
 use eframe::egui::{Color32, FontFamily, FontId};
 
@@ -42,10 +42,10 @@ pub const VISUALIZER_WIDTH: f32 = 607.0;
 pub const VISUALIZER_HEIGHT: f32 = 400.0;
 
 pub fn brand_font() -> FontId {
-    FontId::new(11.0, FontFamily::Name("miklfe-brand".into()))
+    FontId::new(11.0, FontFamily::Name("rustdesktop-brand".into()))
 }
 
 pub fn date_font() -> FontId {
-    FontId::new(26.0, FontFamily::Name("miklfe-date".into()))
+    FontId::new(26.0, FontFamily::Name("rustdesktop-date".into()))
 }
 

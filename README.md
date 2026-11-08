@@ -1,20 +1,19 @@
-# rust-desktop — widget de bureau Miklfe
+# rustdesktop — widget de bureau
 
 Widget de bureau natif écrit en Rust avec [egui/eframe](https://github.com/emilk/egui),
-recréant le skin Rainmeter **Miklfe** sous Windows : horloge analogique, visualiseur
-audio et bandes d'ombre latérales, sans Rainmeter. Il est dérivé du skin
-**Cantarell** d'[ApexXx-SenSei](https://www.deviantart.com/apexxx-sensei/art/Cantarell-770482237).
+inspiré du skin Rainmeter **Cantarell** pour Windows : horloge analogique, visualiseur
+audio et bandes d'ombre latérales, sans Rainmeter.
 
 Le projet est composé de trois fenêtres sans bordure, transparentes et ancrées au
 bas de la pile des fenêtres :
 
 | Fenêtre | Rôle |
 | --- | --- |
-| `Miklfe` | Horloge analogique, date et effet de verre |
-| `Miklfe visualizer` | Spectre audio 256 bandes |
-| `Miklfe bar` | Dégradés d'ombre gauche et droit en plein écran (`Bar.ini`) |
+| `rustdesktop` | Horloge analogique, date et effet de verre |
+| `rustdesktop visualizer` | Spectre audio 256 bandes |
+| `rustdesktop bar` | Dégradés d'ombre gauche et droit en plein écran (`Bar.ini`) |
 
-Une quatrième fenêtre, `Miklfe host`, reste invisible (1 × 1 pixel hors écran) :
+Une quatrième fenêtre, `rustdesktop host`, reste invisible (1 × 1 pixel hors écran) :
 elle fait tourner la boucle d'événements et possède les trois viewports visibles.
 
 ## Fonctionnalités
@@ -50,7 +49,7 @@ cd app
 cargo build --release
 ```
 
-Le binaire est produit dans `app\target\release\miklfe.exe`.
+Le binaire est produit dans `app\target\release\rustdesktop.exe`.
 
 Pour lancer directement :
 
@@ -62,30 +61,30 @@ cargo run --release -- --demo   # visualiseur sans audio
 ## Installation au démarrage
 
 ```powershell
-New-Item -ItemType Directory -Force "$env:LOCALAPPDATA\Miklfe" | Out-Null
-Copy-Item app\target\release\miklfe.exe "$env:LOCALAPPDATA\Miklfe\miklfe.exe"
+New-Item -ItemType Directory -Force "$env:LOCALAPPDATA\rustdesktop" | Out-Null
+Copy-Item app\target\release\rustdesktop.exe "$env:LOCALAPPDATA\rustdesktop\rustdesktop.exe"
 ```
 
-Crée ensuite un raccourci vers `%LOCALAPPDATA%\Miklfe\miklfe.exe` dans le dossier
+Crée ensuite un raccourci vers `%LOCALAPPDATA%\rustdesktop\rustdesktop.exe` dans le dossier
 `shell:startup` pour un lancement automatique à l'ouverture de session.
 
 ## Utilisation
 
 - Glisser l'horloge pour la déplacer.
 - Clic droit sur l'horloge → **Quitter**.
-- Les positions sont enregistrées dans `%APPDATA%\Miklfe\window.json`. Ce fichier
+- Les positions sont enregistrées dans `%APPDATA%\rustdesktop\window.json`. Ce fichier
   n'est pas un fichier de configuration : il est réécrit automatiquement.
 
 ## Variables d'environnement (diagnostic)
 
 | Variable | Effet |
 | --- | --- |
-| `MIKLFE_NO_BAR` | Masque les bandes d'ombre |
-| `MIKLFE_NO_VIZ` | Masque le visualiseur |
-| `MIKLFE_NO_STACK` | Désactive la réorganisation de l'ordre Z |
-| `MIKLFE_NO_DESKTOP` | Désactive la gestion de « Afficher le bureau » |
-| `MIKLFE_NO_CLOCK_DRAW` | Affiche l'horloge sans son contenu |
-| `MIKLFE_RED` | Fond rouge semi-transparent (test de transparence) |
+| `RUSTDESKTOP_NO_BAR` | Masque les bandes d'ombre |
+| `RUSTDESKTOP_NO_VIZ` | Masque le visualiseur |
+| `RUSTDESKTOP_NO_STACK` | Désactive la réorganisation de l'ordre Z |
+| `RUSTDESKTOP_NO_DESKTOP` | Désactive la gestion de « Afficher le bureau » |
+| `RUSTDESKTOP_NO_CLOCK_DRAW` | Affiche l'horloge sans son contenu |
+| `RUSTDESKTOP_RED` | Fond rouge semi-transparent (test de transparence) |
 
 ## Structure du projet
 
@@ -117,12 +116,12 @@ avec certains pilotes NVIDIA. La copie alloue une fois puis utilise
 
 ## Crédits et source
 
-Ce projet réécrit en Rust le skin Rainmeter **Miklfe**, dérivé du skin **Cantarell**
-créé par [ApexXx-SenSei](https://www.deviantart.com/apexxx-sensei/art/Cantarell-770482237)
+Ce projet réécrit en Rust le skin Rainmeter **Cantarell**, créé par
+[ApexXx-SenSei](https://www.deviantart.com/apexxx-sensei/art/Cantarell-770482237)
 et publié le 30 octobre 2018 sur DeviantArt.
 
 Les textures (`Background.png`, `Glass.png`), la police Arca Majora 2 Heavy et les
-proportions du skin proviennent de ces skins.
+proportions du skin proviennent de ce skin.
 
 ## Notes
 

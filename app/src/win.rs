@@ -223,9 +223,9 @@ fn has_client_chrome(hwnd: HWND) -> bool {
 /// devant l'horloge et le visualiseur et les assombrir. On ne touche à l'ordre
 /// Z que s'il a bougé, pour éviter tout clignotement.
 pub fn keep_widget_stack() {
-    let clock = find_window("Miklfe");
-    let visualizer = find_window("Miklfe visualizer");
-    let bar = find_window("Miklfe bar");
+    let clock = find_window("rustdesktop");
+    let visualizer = find_window("rustdesktop visualizer");
+    let bar = find_window("rustdesktop bar");
 
     if let (Some(clock), Some(visualizer)) = (clock, visualizer) {
         if !is_above(clock, visualizer) {
